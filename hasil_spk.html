@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil SPK - SPK ISPO</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* BASE STYLES - DARI INPUT DATA LENGKAP */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f6f9;
+            color: #000;
+        }
+
+        /* Header gradient (SAMA PERSIS) */
+        .dashboard-header {
+            background: linear-gradient(90deg, #2E7D32, #3498db);
+            color: #fff;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 240px;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .user-profile i {
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+
+        .user-profile span {
+            font-weight: 500;
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        /* Sidebar (SAMA PERSIS) */
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #fff;
+            overflow-y: auto;
+        }
+
+        .sidebar .logo {
+            background: #fff;
+            text-align: center;
+            padding: 20px;
+            display: block;
+            gap: 0;
+        }
+
+        .sidebar .logo img {
+            width: 80px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .logo-text {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #000;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .menu-container {
+            background: #2E7D32;
+            border-top-left-radius: 35px;
+            border-top-right-radius: 35px;
+            padding: 20px 0;
+            margin-top: 20px;
+            min-height: calc(100vh - 140px);
+            display: block;
+            gap: 0;
+        }
+
+        .menu-container h6 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 10px 20px;
+            margin: 10px 0 5px 0;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-container a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 5px 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .menu-container a i {
+            margin-right: 12px;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .menu-container a:hover {
+            background: #1b5e20;
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .menu-container a.active {
+            background: #fff;
+            color: #2E7D32;
+            font-weight: 600;
+        }
+
+        /* ISI KONTEN HASIL SPK */
+        .main-content {
+            margin-left: 240px;
+            margin-top: 80px;
+            padding: 30px;
+            min-height: calc(100vh - 80px);
+        }
+        
+        .spk-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            max-width: 1200px; 
+            margin: 0 auto;
+        }
+        
+        /* Skor Kepatuhan Box (Tidak Berubah) */
+        .skor-box {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .skor-box p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #000;
+            margin: 0 0 5px 0;
+        }
+        
+        .skor-box h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            color: #000;
+        }
+        
+        .status-ispo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 12px;
+            border-radius: 5px;
+            background-color: #f4f6f9;
+            color: #2E7D32;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .status-ispo i {
+            font-size: 0.9rem;
+        }
+        
+        /* Detail Skor Table (Tidak Berubah) */
+        .detail-skor-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .skor-table {
+            width: 100%;
+            margin-bottom: 30px;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .skor-table th, .skor-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .skor-table th {
+            background-color: #f0f0f0;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #333;
+            border-right: 1px solid #e0e0e0;
+        }
+        
+        .skor-table th:last-child {
+            border-right: none;
+        }
+        
+        .skor-table td {
+            font-size: 0.9rem;
+            color: #555;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .skor-table td:last-child {
+            border-right: none;
+            font-weight: 600;
+        }
+        
+        .skor-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Map and Rekomendasi Container (Tidak Berubah) */
+        .map-rekomendasi-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .map-box {
+            flex: 1; 
+            height: 200px;
+            background-color: #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .map-box:before {
+            content: 'Simulasi Peta';
+            position: absolute;
+            font-size: 1rem;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        .rekomendasi-box {
+            flex: 1; 
+            padding: 20px;
+            border: 1px solid #E74C3C;
+            background-color: #fef0f0;
+            border-radius: 10px;
+        }
+        
+        .rekomendasi-box h5 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #E74C3C;
+            margin-bottom: 10px;
+        }
+        
+        .rekomendasi-box p {
+            font-size: 0.95rem;
+            color: #555;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Buttons (PERUBAHAN DI SINI) */
+        .spk-buttons {
+            display: flex;
+            /* Perubahan: Pindahkan tombol ke ujung kanan */
+            justify-content: flex-end; 
+            gap: 20px;
+        }
+
+        .btn-download, .btn-close {
+            padding: 12px 35px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            
+            /* Perubahan: Pastikan teks di dalam tombol rata tengah */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-download {
+            background: #2E7D32;
+            color: #fff;
+        }
+
+        .btn-download:hover {
+            background: #1b5e20;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+        }
+
+        .btn-close {
+            background: #E74C3C;
+            color: #fff;
+        }
+
+        .btn-close:hover {
+            background: #C0392B;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+        }
+
+        /* Responsive (Tidak Berubah) */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .dashboard-header {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .map-rekomendasi-container {
+                flex-direction: column;
+            }
+
+            .spk-buttons {
+                justify-content: center; /* Tetap di tengah untuk layar kecil */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <h2 class="page-header-title">Hasil SPK</h2>
+        <div class="user-profile">
+            <i class="fa-solid fa-user-circle"></i>
+            <span>Pekebun</span>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="logo">
+            <img src="logo-bengkalis.jpg" alt="Logo Bengkalis">
+            <p class="logo-text">SPK & Pemetaan ISPO</p>
+        </div>
+        <div class="menu-container">
+            <h6>Home</h6>
+            <a href="dashboard_pekebun.html">
+                <i class="fa-solid fa-house"></i> Dashboard
+            </a>
+            <h6>Menu</h6>
+            <a href="input_data_lengkap.html">
+                <i class="fa-solid fa-database"></i> Input Data Lengkap
+            </a>
+            <a href="pemetaan.html">
+                <i class="fa-solid fa-map"></i> Pemetaan
+            </a>
+            <a href="hasil_spk.html" class="active">
+                <i class="fa-solid fa-chart-line"></i> Hasil SPK
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="spk-card">
+            <div class="skor-box">
+                <div class="skor-text">
+                    <p>Skor Kepatuhan ISPO</p>
+                    <h2>78/100%</h2>
+                </div>
+                <div class="status-ispo">
+                    <i class="fa-solid fa-circle-check"></i> Sudah ISPO
+                </div>
+            </div>
+
+            <h4 class="detail-skor-title">Detail Skor</h4>
+            <table class="skor-table">
+                <thead>
+                    <tr>
+                        <th>Kriteria</th>
+                        <th>Skor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Legalitas</td>
+                        <td>80%</td>
+                    </tr>
+                    <tr>
+                        <td>Lingkungan</td>
+                        <td>70%</td>
+                    </tr>
+                    <tr>
+                        <td>Sosial</td>
+                        <td>75%</td>
+                    </tr>
+                    <tr>
+                        <td>Praktik Perkebunan</td>
+                        <td>85%</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="map-rekomendasi-container">
+                <div class="map-box">
+                    <img src="https://via.placeholder.com/600x200/cccccc?text=Peta+Lokasi+Kebun" alt="Peta Lokasi Kebun" style="opacity: 0.5;">
+                </div>
+                <div class="rekomendasi-box">
+                    <h5 style="color: #000;">Rekomendasi</h5>
+                    <p>Lengkapi dokumen kepemilikan lahan untuk meningkatkan skor legalitas.</p>
+                </div>
+            </div>
+
+            <div class="spk-buttons">
+                <button type="button" class="btn-download">Download hasil SPK</button>
+                <button type="button" class="btn-close">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perhitungan SPK - Hasil TOPSIS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    <link href="style_admin_base.css" rel="stylesheet">
+
+    <style>
+        /* CSS lokal untuk halaman TOPSIS */
+        .metode-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 25px;
+        }
+        .topsis-table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .topsis-table th, .topsis-table td {
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+            border: 1px solid #eee;
+        }
+        .topsis-table th {
+            background-color: #E8DFCA; 
+            font-weight: 600;
+            color: #333;
+        }
+        .topsis-table tr:nth-child(odd) { background-color: #fff; }
+        .topsis-table tr:nth-child(even) { background-color: #F8F8F8; }
+        
+        /* Status Badges */
+        .status-badge-topsis {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .status-sudah { background-color: #2ECC71; color: #fff; } 
+        .status-proses-topsis { background-color: #FFC107; color: #000; } 
+        .status-belum-topsis { background-color: #E74C3C; color: #fff; } 
+        
+        /* Menggunakan flexbox untuk action-container agar tombol berada di kanan */
+        .action-container { 
+            display: flex; 
+            justify-content: flex-end; /* Menempatkan item di kanan */
+            gap: 15px; /* Memberi jarak antar tombol */
+            margin-top: 30px; 
+        }
+        /* Tombol Lanjut (dijadikan base styling untuk tombol di sini) */
+        .btn-action {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none; 
+            color: #fff;
+        }
+
+        /* Styling spesifik untuk tombol Laporan */
+        .btn-laporan {
+            background-color: #2E7D32; /* Hijau utama */
+        }
+        .btn-laporan:hover { background-color: #256a2a; }
+
+        /* Styling spesifik untuk tombol Kembali/Revisi */
+        .btn-kembali {
+            background-color: #3498db; /* Biru untuk revisi/kembali */
+        }
+        .btn-kembali:hover { background-color: #2980b9; }
+
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <h2 class="page-header-title">Perhitungan SPK</h2>
+        <div class="user-profile">
+            <i class="fa-solid fa-user-circle"></i>
+            <span>Admin</span>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="logo">
+            <img src="logo-bengkalis.jpg" alt="Logo Bengkalis">
+            <p class="logo-text">SPK & Pemetaan ISPO</p>
+        </div>
+        <div class="menu-container">
+            <h6>Home</h6>
+            <a href="dashboard_admin.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+            <h6>Menu</h6>
+            <a href="verifikasi_dokumen.html"><i class="fa-solid fa-clipboard-check"></i> Verifikasi Dokumen</a>
+            <a href="perhitungan_ahp.html" class="active"><i class="fa-solid fa-calculator"></i> Perhitungan SPK</a>
+            <a href="laporan_otomatis.html"><i class="fa-solid fa-chart-pie"></i> Laporan Otomatis</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="spk-container"> 
+            
+            <p class="metode-title">Metode TOPSIS - Hasil Akhir</p>
+            <p class="alert alert-success">Perhitungan AHP dan TOPSIS berhasil diselesaikan. Berikut adalah hasil rekomendasi kelayakan ISPO:</p>
+
+            <div class="table-responsive">
+                <table class="topsis-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">Lokasi Kebun</th>
+                            <th style="width: 20%;">Skor V<sub>i</sub> (TOPSIS)</th>
+                            <th style="width: 20%;">Ranking</th>
+                            <th style="width: 30%;">Rekomendasi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pekebun 1 (Desa Bantan)</td><td>0.85</td><td>1</td>
+                            <td><span class="status-badge-topsis status-sudah">Direkomendasikan ISPO</span></td>
+                        </tr>
+                        <tr>
+                            <td>Pekebun 2 (Desa Pambang)</td><td>0.78</td><td>2</td>
+                            <td><span class="status-badge-topsis status-sudah">Direkomendasikan ISPO</span></td>
+                        </tr>
+                        <tr>
+                            <td>Pekebun 3 (Desa Selat Baru)</td><td>0.65</td><td>3</td>
+                            <td><span class="status-badge-topsis status-proses-topsis">Perlu Perbaikan Minor</span></td>
+                        </tr>
+                        <tr>
+                            <td>Pekebun 4 (Desa Jangkang)</td><td>0.50</td><td>4</td>
+                            <td><span class="status-badge-topsis status-belum-topsis">Tunda Sertifikasi</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="action-container">
+                <a href="perhitungan_ahp.html" class="btn-action btn-kembali">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali ke AHP (Revisi Bobot)
+                </a>
+
+                <a href="laporan_otomatis.html" class="btn-action btn-laporan">
+                    Lihat Laporan Otomatis <i class="fa-solid fa-chart-bar"></i>
+                </a>
+            </div>
+            
+        </div> </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

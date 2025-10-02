@@ -1,0 +1,473 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f6f9;
+    color: #000;
+}
+
+/* Header gradient */
+.dashboard-header {
+    background: linear-gradient(90deg, #2E7D32, #3498db);
+    color: #fff;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 240px;
+    right: 0;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.page-header-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.user-profile i {
+    font-size: 2rem;
+    margin-right: 10px;
+}
+
+.user-profile span {
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+/* Tombol untuk membuka/menutup sidebar di mobile */
+.sidebar-toggle {
+    display: none; /* Sembunyi di desktop */
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #fff;
+    overflow-y: auto;
+}
+
+.sidebar .logo {
+    background: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+.sidebar .logo img {
+    width: 80px;
+    display: block;
+    margin: 0 auto;
+}
+
+.logo-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #000;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.menu-container {
+    background: #2E7D32;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    padding: 20px 0;
+    margin-top: 20px;
+    min-height: calc(100vh - 140px);
+}
+
+.menu-container h6 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 10px 20px;
+    margin: 10px 0 5px 0;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.menu-container a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 25px;
+    margin: 5px 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.menu-container a i {
+    margin-right: 12px;
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.menu-container a:hover {
+    background: #1b5e20;
+    color: #fff;
+    transform: translateX(5px);
+}
+
+.menu-container a.active {
+    background: #fff;
+    color: #2E7D32;
+    font-weight: 600;
+}
+
+/* Main content */
+.main-content {
+    margin-left: 240px;
+    margin-top: 80px;
+    padding: 30px;
+    min-height: calc(100vh - 80px);
+}
+
+/* Form card */
+.form-card {
+    background: #fff;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.form-card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #000;
+}
+
+/* Step indicator */
+.step-indicator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    position: relative;
+    padding: 0 50px;
+}
+
+.step-indicator::before {
+    content: '';
+    position: absolute;
+    top: 35px;
+    left: 100px;
+    right: 100px;
+    height: 2px;
+    background: #ddd;
+    z-index: 1;
+}
+
+.step-item {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.step-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    transition: all 0.3s ease;
+}
+
+.step-icon i {
+    font-size: 1.8rem;
+    color: #999;
+}
+
+.step-item.active .step-icon {
+    background: #2E7D32;
+}
+
+.step-item.active .step-icon i {
+    color: #fff;
+}
+
+.step-item.completed .step-icon {
+    background: #ddd;
+}
+
+.step-item.completed .step-icon i {
+    color: #666;
+}
+
+.step-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #666;
+}
+
+.step-item.active .step-label {
+    color: #2E7D32;
+    font-weight: 600;
+}
+
+/* Form styles */
+.form-label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #2E7D32;
+    box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.15);
+}
+
+/* Upload box */
+.upload-section {
+    margin-top: 30px;
+}
+
+.upload-box {
+    border: 2px dashed #ccc;
+    padding: 30px;
+    text-align: center;
+    border-radius: 12px;
+    background: #fafafa;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.upload-box:hover {
+    background: #f0f0f0;
+    border-color: #2E7D32;
+}
+
+.upload-box i {
+    font-size: 3rem;
+    color: #3498db;
+    margin-bottom: 15px;
+}
+
+.upload-box p {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 10px 0;
+}
+
+.upload-box input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Map location box */
+.location-box {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    background: #f9f9f9;
+    text-align: center;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.location-box i {
+    font-size: 4rem;
+    color: #3498db;
+}
+
+/* Question sections */
+.question-section {
+    margin-bottom: 30px;
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background: #fafafa;
+}
+
+.question-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.question-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.question-column {
+    flex: 1;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.radio-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #2E7D32;
+    cursor: pointer;
+}
+
+.radio-option label {
+    font-size: 0.9rem;
+    color: #333;
+    cursor: pointer;
+    margin: 0;
+}
+
+.upload-btn {
+    background: #fff;
+    border: 1px solid #2E7D32;
+    color: #2E7D32;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.upload-btn:hover {
+    background: #2E7D32;
+    color: #fff;
+}
+
+/* Buttons */
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    gap: 15px;
+}
+
+.btn-prev, .btn-next, .btn-submit {
+    padding: 12px 35px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-prev {
+    background: #fff;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+.btn-prev:hover {
+    background: #f5f5f5;
+}
+
+.btn-next, .btn-submit {
+    background: #2E7D32;
+    color: #fff;
+}
+
+.btn-next:hover, .btn-submit:hover {
+    background: #1b5e20;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-header {
+        left: 0;
+        padding: 15px;
+        justify-content: space-between;
+    }
+    .sidebar-toggle {
+        display: block; /* Tampilkan tombol hamburger */
+    }
+    .user-profile {
+        display: none; /* Sembunyikan profil di header */
+    }
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    .main-content {
+        margin-left: 0;
+    }
+
+    .step-indicator {
+        padding: 0 10px;
+    }
+
+    .step-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .step-icon i {
+        font-size: 1.3rem;
+    }
+
+    .step-label {
+        font-size: 0.75rem;
+    }
+
+    .question-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+}

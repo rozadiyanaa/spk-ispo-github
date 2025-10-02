@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Data Lengkap - SPK ISPO</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style_input_data.css">
+</head>
+<body>
+    <div class="dashboard-header">
+        <h2 class="page-header-title">Input Data Lengkap</h2>
+        <div class="user-profile">
+            <i class="fa-solid fa-user-circle"></i>
+            <span>Pekebun</span>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="logo">
+            <img src="logo-bengkalis.jpg" alt="Logo Bengkalis">
+            <p class="logo-text">SPK & Pemetaan ISPO</p>
+        </div>
+        <div class="menu-container">
+            <h6>Home</h6>
+            <a href="dashboard_pekebun.html">
+                <i class="fa-solid fa-house"></i> Dashboard
+            </a>
+            <h6>Menu</h6>
+            <a href="input_data_lengkap.html" class="active">
+                <i class="fa-solid fa-database"></i> Input Data Lengkap
+            </a>
+            <a href="pemetaan.html">
+                <i class="fa-solid fa-map"></i> Pemetaan
+            </a>
+            <a href="hasil_spk.html">
+                <i class="fa-solid fa-chart-line"></i> Hasil SPK
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="form-card">
+            <h5 class="form-card-title">Form data lengkap</h5>
+
+            <div class="step-indicator">
+                <div class="step-item active" id="step1">
+                    <div class="step-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="step-label">diri</div>
+                </div>
+                <div class="step-item" id="step2">
+                    <div class="step-icon">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <div class="step-label">kebun</div>
+                </div>
+                <div class="step-item" id="step3">
+                    <div class="step-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <div class="step-label">pertanyaan ISPO & upoad dokumen</div>
+                </div>
+            </div>
+
+            <form id="formStep1" class="form-step active">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label">nama</label>
+                        <input type="text" class="form-control" name="nama">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">no. hp</label>
+                        <input type="text" class="form-control" name="no_hp">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">kecamatan</label>
+                        <input type="text" class="form-control" name="kecamatan">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label">nik</label>
+                        <input type="text" class="form-control" name="nik">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">alamat lengkap</label>
+                        <input type="text" class="form-control" name="alamat">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">pendidikan</label>
+                        <input type="text" class="form-control" name="pendidikan">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label">NPWP</label>
+                        <input type="text" class="form-control" name="npwp">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">desa</label>
+                        <input type="text" class="form-control" name="desa">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">pengalaman usaha sawit</label>
+                        <input type="text" class="form-control" name="pengalaman">
+                    </div>
+                </div>
+
+                <div class="upload-section">
+                    <label class="form-label">Upload KTP</label>
+                    <div class="upload-box">
+                        <i class="fa-solid fa-image"></i>
+                        <p>Upload KTP</p>
+                        <input type="file" name="ktp" accept="image/*">
+                    </div>
+                </div>
+
+                <div class="form-buttons">
+                    <div></div>
+                    <button type="button" class="btn-next" onclick="nextStep(2)">Selanjutnya</button>
+                </div>
+            </form>
+
+            <form id="formStep2" class="form-step" style="display: none;">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label">nama kebun</label>
+                        <input type="text" class="form-control" name="nama_kebun">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">tahun tanam</label>
+                        <input type="text" class="form-control" name="tahun_tanam">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">tahun tanam pertama</label>
+                        <input type="text" class="form-control" name="tahun_tanam_pertama">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label">lokasi kebun</label>
+                        <input type="text" class="form-control" name="lokasi_kebun">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">kondisi tanah</label>
+                        <input type="text" class="form-control" name="kondisi_tanah">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">umur tanaman</label>
+                        <input type="text" class="form-control" name="umur_tanaman">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label">luas lahan (ha)</label>
+                        <input type="text" class="form-control" name="luas_lahan">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">jumlah pohon sawit</label>
+                        <input type="text" class="form-control" name="jumlah_pohon">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Lokasi (Klik untuk Tentukan di Peta)</label>
+                        <div class="location-box" data-bs-toggle="modal" data-bs-target="#mapModal">
+                            <i class="fa-solid fa-map-marker-alt"></i>
+                        </div>
+                        <input type="hidden" name="latitude" id="latitudeInput">
+                        <input type="hidden" name="longitude" id="longitudeInput">
+                        <input type="text" class="form-control mt-2" id="displayCoords" readonly placeholder="Lat, Lng akan muncul di sini">
+                    </div>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="button" class="btn-prev" onclick="prevStep(1)">Sebelumnya</button>
+                    <button type="button" class="btn-next" onclick="nextStep(3)">Selanjutnya</button>
+                </div>
+            </form>
+
+            <form id="formStep3" class="form-step" style="display: none;">
+                <div class="question-section">
+                    <div class="question-title">1. Legalitas</div>
+                    <div class="question-row">
+                        <div class="question-column">
+                            <label class="form-label">Apakah Anda memiliki sertifikat hak atas tanah (SHM/HGU)?</label>
+                            <div style="border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 15px;"></div>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="legal1_ya" name="legalitas1" value="ya">
+                                    <label for="legal1_ya">ya</label>
+                                    <button type="button" class="upload-btn">upload file</button>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="legal1_tidak" name="legalitas1" value="tidak">
+                                    <label for="legal1_tidak">tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="question-column">
+                            <label class="form-label">Apakah perusahaan/koperasi Anda terdaftar resmi?</label>
+                            <div style="border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 15px;"></div>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="legal2_ya" name="legalitas2" value="ya">
+                                    <label for="legal2_ya">ya</label>
+                                    <button type="button" class="upload-btn">upload file</button>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="legal2_tidak" name="legalitas2" value="tidak">
+                                    <label for="legal2_tidak">tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">2. Praktik Perkebunan yang Baik</div>
+                    <div class="question-row">
+                        <div class="question-column">
+                            <label class="form-label">Apakah Anda menggunakan benih unggul bersertifikat?</label>
+                            <div style="border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 15px;"></div>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="praktik1_ya" name="praktik1" value="ya">
+                                    <label for="praktik1_ya">ya</label>
+                                    <button type="button" class="upload-btn">upload file</button>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="praktik1_tidak" name="praktik1" value="tidak">
+                                    <label for="praktik1_tidak">tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="question-column">
+                            <label class="form-label">Apakah Anda memiliki catatan penggunaan pupuk dan pestisida?</label>
+                            <div style="border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 15px;"></div>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="praktik2_ya" name="praktik2" value="ya">
+                                    <label for="praktik2_ya">ya</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="praktik2_tidak" name="praktik2" value="tidak">
+                                    <label for="praktik2_tidak">tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-title">3. Pengelolaan Lingkungan Hidup dan SDA</div>
+                    <div class="question-row">
+                        <div class="question-column">
+                            <label class="form-label">Apakah Anda melakukan pencegahan kebakaran lahan dan kebun?</label>
+                            <div style="border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 15px;"></div>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="lingkungan1_ya" name="lingkungan1" value="ya">
+                                    <label for="lingkungan1_ya">ya</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="lingkungan1_tidak" name="lingkungan1" value="tidak">
+                                    <label for="lingkungan1_tidak">tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="question-column">
+                            <label class="form-label">Apakah Anda memiliki program pengelolaan limbah/sampah kebun?</label>
+                            <div style="border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 15px;"></div>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="lingkungan2_ya" name="lingkungan2" value="ya">
+                                    <label for="lingkungan2_ya">ya</label>
+                                    <button type="button" class="upload-btn">upload file</button>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="lingkungan2_tidak" name="lingkungan2" value="tidak">
+                                    <label for="lingkungan2_tidak">tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="button" class="btn-prev" onclick="prevStep(2)">Sebelumnya</button>
+                    <button type="submit" class="btn-submit">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mapModalLabel">Tentukan Lokasi Kebun (Pilih Titik di Peta)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="map" style="height: 400px; width: 100%;"></div>
+                    <p class="mt-3">Koordinat terpilih: <span id="selectedCoords">0, 0</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-success" id="saveLocationBtn">Simpan Lokasi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script> 
+
+    <script>
+        // Variabel global untuk Peta dan Penanda
+        let map;
+        let marker;
+        // Default koordinat (Contoh: Pekanbaru)
+        let currentLat = 0.5332; 
+        let currentLng = 101.4475;
+
+        // FUNGSI INTI GOOGLE MAPS - HANYA DIJALANKAN SEKALI
+        window.initMap = function() {
+            const defaultLocation = { lat: currentLat, lng: currentLng };
+            
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: defaultLocation,
+                mapTypeId: 'satellite'
+            });
+
+            marker = new google.maps.Marker({
+                position: defaultLocation,
+                map: map,
+                draggable: true, // Penanda bisa digeser
+                title: "Lokasi Kebun"
+            });
+
+            // 1. Event listener saat marker digeser (Drag)
+            google.maps.event.addListener(marker, 'dragend', function(event) {
+                updateCoordinates(event.latLng.lat(), event.latLng.lng());
+            });
+
+            // 2. Event listener saat peta diklik
+            map.addListener('click', function(event) {
+                marker.setPosition(event.latLng);
+                updateCoordinates(event.latLng.lat(), event.latLng.lng());
+            });
+
+            // Inisialisasi koordinat tampilan
+            updateCoordinates(currentLat, currentLng);
+        }
+
+        // Fungsi untuk memperbarui nilai koordinat sementara di Modal
+        function updateCoordinates(lat, lng) {
+            currentLat = lat;
+            currentLng = lng;
+            // Tampilkan koordinat di elemen span dalam modal
+            document.getElementById('selectedCoords').textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+        }
+
+        // Event listener saat Modal dibuka (Memastikan peta dirender dengan benar)
+        const mapModalEl = document.getElementById('mapModal');
+        mapModalEl.addEventListener('shown.bs.modal', function () {
+            // Jika peta sudah dimuat, perbarui tampilan dan posisi marker
+            if (map) {
+                google.maps.event.trigger(map, 'resize');
+                
+                // Ambil koordinat terakhir dari input jika ada
+                const savedLat = parseFloat(document.getElementById('latitudeInput').value) || currentLat;
+                const savedLng = parseFloat(document.getElementById('longitudeInput').value) || currentLng;
+
+                const centerLoc = new google.maps.LatLng(savedLat, savedLng);
+                map.setCenter(centerLoc);
+                marker.setPosition(centerLoc);
+                updateCoordinates(savedLat, savedLng);
+            }
+        });
+
+        // Event listener tombol 'Simpan Lokasi'
+        document.getElementById('saveLocationBtn').addEventListener('click', function() {
+            // 3. Menyimpan koordinat AKHIR ke input tersembunyi
+            document.getElementById('latitudeInput').value = currentLat;
+            document.getElementById('longitudeInput').value = currentLng;
+            
+            // Menampilkan di input yang terlihat oleh pengguna
+            document.getElementById('displayCoords').value = `${currentLat.toFixed(6)}, ${currentLng.toFixed(6)}`;
+
+            // Menutup modal
+            const mapModal = bootstrap.Modal.getInstance(mapModalEl);
+            mapModal.hide();
+            alert(`Koordinat (${currentLat.toFixed(6)}, ${currentLng.toFixed(6)}) berhasil disimpan di formulir.`);
+        });
+
+
+        // --- FUNGSI NAVIGASI MULTI-STEP ---
+        function nextStep(step) {
+            document.querySelectorAll('.form-step').forEach(form => {
+                form.style.display = 'none';
+            });
+            document.querySelectorAll('.step-item').forEach(item => {
+                item.classList.remove('active');
+                if (parseInt(item.id.replace('step', '')) < step) {
+                    item.classList.add('completed');
+                } else {
+                    item.classList.remove('completed');
+                }
+            });
+            document.getElementById('formStep' + step).style.display = 'block';
+            document.getElementById('step' + step).classList.add('active');
+            document.getElementById('step' + step).classList.remove('completed');
+        }
+
+        function prevStep(step) {
+            document.querySelectorAll('.form-step').forEach(form => {
+                form.style.display = 'none';
+            });
+            document.querySelectorAll('.step-item').forEach(item => {
+                item.classList.remove('active', 'completed');
+            });
+            document.getElementById('formStep' + step).style.display = 'block';
+            document.getElementById('step' + step).classList.add('active');
+            for (let i = 1; i < step; i++) {
+                document.getElementById('step' + i).classList.add('completed');
+            }
+        }
+
+        // FUNGSI UPLOAD FILE DAN SUBMIT
+        document.getElementById('formStep3').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Di sini Anda bisa mengirim data form ke server, termasuk latitude dan longitude
+            const latitude = document.getElementById('latitudeInput').value;
+            const longitude = document.getElementById('longitudeInput').value;
+            
+            alert(`Data berhasil disimpan!\nLokasi yang disimpan: Lat: ${latitude}, Lng: ${longitude}`);
+        });
+
+        document.querySelectorAll('.upload-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.pdf,.doc,.docx,image/*';
+                input.click();
+                input.addEventListener('change', function() {
+                    if (this.files[0]) {
+                        alert('File ' + this.files[0].name + ' berhasil dipilih');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+/* ======================================= */
+/* style_admin_base.css (DITAMBAH MODAL STYLES) */
+/* ======================================= */
+
+/* BASE STYLES & FONT */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Poppins', sans-serif; background-color: #f4f6f9; color: #000; }
+
+/* HEADER */
+.dashboard-header { 
+    background: linear-gradient(90deg, #2E7D32, #3498db); 
+    color: #fff; padding: 20px 30px; display: flex; 
+    justify-content: space-between; align-items: center; 
+    position: fixed; top: 0; left: 240px; right: 0; 
+    z-index: 100; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+.page-header-title { font-size: 1.6rem; font-weight: 600; color: #fff; margin: 0; }
+.user-profile { display: flex; align-items: center; color: #fff; cursor: pointer; }
+.user-profile i { font-size: 2rem; margin-right: 10px; }
+.user-profile span { font-weight: 500; font-size: 1rem; line-height: 1; }
+
+/* Tombol untuk membuka/menutup sidebar di mobile */
+.sidebar-toggle {
+    display: none; /* Sembunyi di desktop */
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* SIDEBAR */
+.sidebar { width: 240px; height: 100vh; position: fixed; top: 0; left: 0; background: #fff; overflow-y: auto; }
+.sidebar .logo { background: #fff; text-align: center; padding: 20px; display: block; }
+.sidebar .logo img { width: 80px; display: block; margin: 0 auto; }
+.logo-text { font-size: 0.75rem; font-weight: 600; color: #000; margin-top: 10px; text-align: center; }
+.menu-container { 
+    background: #2E7D32; border-top-left-radius: 35px; border-top-right-radius: 35px; 
+    padding: 20px 0; margin-top: 20px; min-height: calc(100vh - 140px); 
+}
+.menu-container h6 { font-size: 0.85rem; font-weight: 700; padding: 10px 20px; margin: 10px 0 5px 0; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
+.menu-container a { 
+    display: flex; align-items: center; padding: 12px 20px; color: #fff; 
+    text-decoration: none; border-radius: 25px; margin: 5px 15px; font-size: 0.9rem; 
+    font-weight: 500; transition: all 0.3s ease; 
+}
+.menu-container a i { margin-right: 12px; font-size: 1.1rem; width: 20px; text-align: center; }
+.menu-container a.active { background: #fff; color: #2E7D32; font-weight: 600; }
+.profile-link { text-align: center; display: block; padding: 10px 0; font-size: 0.9rem; font-weight: 600; color: #555; text-decoration: none; border-top: 1px solid #eee; }
+
+/* MAIN CONTENT & CARD */
+.main-content { margin-left: 240px; margin-top: 80px; padding: 30px; min-height: calc(100vh - 80px); }
+.verification-card {
+    background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    max-width: 1200px; margin: 0 auto;
+}
+
+/* SEARCH BAR */
+.search-container { 
+    margin-bottom: 30px; 
+    display: flex; /* Tambahkan ini agar search bar di kanan */
+    justify-content: flex-end; /* Tambahkan ini agar search bar di kanan */
+}
+.search-input { 
+    width: 300px; /* Lebar diperkecil untuk tampilan yang lebih rapi */
+    padding: 12px 15px 12px 50px; border: 1px solid #ddd; 
+    border-radius: 10px; font-size: 1rem; color: #555; outline: none; transition: border-color 0.3s; 
+    background-repeat: no-repeat; background-position: 15px center; background-size: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%239e9e9e' d='M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.1-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z'/%3E%3C/svg%3E"); 
+}
+
+/* TABLE STYLING */
+.verification-table { width: 100%; border-collapse: collapse; border-spacing: 0; }
+.verification-table th {
+    font-weight: 600; font-size: 0.9rem; color: #555; padding: 12px 15px; 
+    text-align: left; background-color: #E8DFCA; border-bottom: 2px solid #ddd; 
+}
+.verification-table td { padding: 15px; font-size: 0.95rem; vertical-align: middle; border-bottom: 1px solid #f0f0f0; }
+
+/* Zebra Striping */
+.verification-table tbody tr:nth-child(odd) td { background-color: #fff; }
+.verification-table tbody tr:nth-child(even) td { background-color: #F8F8F8; }
+.verification-table tbody tr:hover td { background-color: #f0f0f0; }
+
+/* Status Badges */
+.status-badge {
+    display: inline-block; padding: 6px 10px; border-radius: 12px; font-size: 0.8rem; 
+    font-weight: 600; text-align: center; min-width: 100px;
+}
+.status-terverifikasi { background-color: #388E3C; color: #fff; }
+.status-proses { background-color: #FFC107; color: #000; }
+.status-belum { background-color: #E74C3C; color: #fff; }
+
+/* Action Icons */
+.action-icons i { 
+    font-size: 1.1rem; margin-right: 15px; cursor: pointer; transition: color 0.2s;
+    display: inline-block; 
+}
+.action-icons .fa-eye { color: #3498db; }
+.action-icons .fa-edit { color: #f39c12; }
+.action-icons .fa-trash-alt { color: #e74c3c; }
+
+/* Tombol Tutup */
+.btn-tutup-container { margin-top: 30px; text-align: right; }
+.btn-tutup { 
+    padding: 12px 35px; border-radius: 8px; font-size: 0.95rem; font-weight: 500; 
+    border: none; cursor: pointer; background: #E74C3C; color: #fff; transition: all 0.3s ease; 
+}
+.btn-tutup:hover { background: #C0392B; transform: translateY(-2px); }
+
+
+/* ==================================================== */
+/* MODAL EDIT STATUS STYLING */
+/* ==================================================== */
+.edit-form-overlay { 
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background-color: rgba(0, 0, 0, 0.6); z-index: 1050; padding: 40px; overflow-y: auto; 
+    align-items: center; /* Tambahan untuk centering */
+    justify-content: center; /* Tambahan untuk centering */
+}
+.edit-form-card { 
+    background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2); 
+    max-width: 500px; width: 90%; position: relative; 
+    animation: fadeIn 0.3s;
+}
+.edit-form-card h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 25px; color: #2E7D32; }
+.form-group label { font-weight: 500; font-size: 0.95rem; display: block; margin-bottom: 5px; }
+.form-group input, .form-group select { 
+    width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 8px; 
+    font-size: 1rem; margin-bottom: 20px; 
+}
+.edit-form-card input:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    color: #777;
+}
+
+.btn-form-action { 
+    padding: 10px 20px; border-radius: 8px; font-size: 0.95rem; font-weight: 500; 
+    border: none; cursor: pointer; transition: background-color 0.3s; 
+}
+.btn-save { background: #2E7D32; color: #fff; margin-left: 10px; }
+.btn-cancel { background: #ccc; color: #333; }
+.btn-save:hover { background-color: #1b5e20; }
+.btn-cancel:hover { background-color: #bbb; }
+
+
+/* ==================================================== */
+/* MODAL LIHAT DETAIL DOKUMEN STYLING */
+/* ==================================================== */
+.detail-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6); 
+    z-index: 1100; 
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    overflow-y: auto;
+}
+.detail-card {
+    background: #fff; padding: 30px; border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    width: 90%; max-width: 950px; position: relative;
+    animation: fadeIn 0.3s;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.detail-header {
+    font-size: 1.5rem; font-weight: 600; color: #2E7D32;
+    margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #eee;
+}
+.close-btn {
+    position: absolute; top: 15px; right: 25px; font-size: 30px;
+    font-weight: 300; color: #888; cursor: pointer;
+}
+.close-btn:hover { color: #555; }
+
+.detail-content-grid {
+    display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px; margin-bottom: 20px;
+}
+.info-column {
+    padding-right: 15px;
+}
+.info-group { margin-bottom: 15px; }
+.info-group label { display: block; font-size: 0.9rem; font-weight: 500; color: #777; margin-bottom: 3px; }
+.info-group p { 
+    font-size: 1.05rem; font-weight: 500; color: #333; margin: 0; 
+    padding: 8px 12px; background-color: #f9f9f9; border-radius: 5px; border: 1px solid #eee;
+}
+
+.preview-column label { font-size: 0.9rem; font-weight: 500; color: #777; margin-bottom: 5px; display: block; }
+.document-preview-box {
+    border: 2px dashed #ccc; background-color: #fcfcfc; padding: 30px 20px;
+    height: 250px; /* Diubah agar lebih proporsional */
+    display: flex; flex-direction: column; justify-content: center;
+    align-items: center; margin-bottom: 15px; border-radius: 8px; color: #555;
+}
+.document-preview-box i { font-size: 3rem; margin-bottom: 15px; color: #E74C3C; }
+.btn-primary-view {
+    display: inline-block; background-color: #3498db; color: #fff;
+    padding: 10px 20px; border-radius: 5px; text-decoration: none;
+    font-size: 0.9rem; font-weight: 500; margin-top: 15px;
+    transition: background-color 0.3s;
+}
+.btn-primary-view:hover { background-color: #2980b9; }
+
+.verification-actions { display: flex; gap: 15px; margin-top: 25px; }
+.btn-verif { flex-grow: 1; padding: 12px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: opacity 0.3s; }
+.btn-success-verif { background-color: #2ECC71; color: #fff; }
+.btn-danger-verif { background-color: #E74C3C; color: #fff; }
+.btn-success-verif:hover, .btn-danger-verif:hover { opacity: 0.9; }
+
+.detail-action-footer { text-align: right; border-top: 1px solid #eee; padding-top: 20px; }
+
+
+/* ==================================================== */
+/* SPK & LOADING STYLES (Tambahan untuk Perhitungan SPK) */
+/* ==================================================== */
+
+/* Kontainer Utama Halaman Perhitungan SPK agar di tengah */
+.spk-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    max-width: 900px; 
+    margin: 0 auto; 
+}
+
+/* Loading Overlay Style */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9); 
+    z-index: 2000; 
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.loading-spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #2E7D32; 
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+.loading-text-overlay { 
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #555;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* RESPONSIVE LAYOUT */
+@media (max-width: 1024px) {
+    .dashboard-header { 
+        left: 0; 
+        padding: 15px; 
+        justify-content: space-between;
+    }
+    .sidebar-toggle {
+        display: block; /* Tampilkan tombol hamburger */
+    }
+    .page-header-title { font-size: 1.4rem; }
+    .main-content { margin-left: 0; margin-top: 70px; padding: 20px; }
+    .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
+    .sidebar.open { transform: translateX(0); z-index: 1200; } /* Pastikan sidebar di atas konten */
+    .user-profile { display: none; } /* Sembunyikan profil di header agar lebih rapi */
+}
+
+@media (max-width: 768px) {
+    .main-content { padding: 10px; }
+    .verification-card { padding: 15px; }
+    .search-input { width: 100%; }
+    .table-responsive { overflow-x: auto; }
+    
+    /* Responsive Modals */
+    .detail-content-grid { grid-template-columns: 1fr; }
+    .detail-card, .edit-form-card { 
+        width: 95%; 
+        max-width: none; 
+        margin: 20px auto; 
+        padding: 20px;
+    }
+    .document-preview-box { height: 200px; padding: 20px; }
+    .verification-actions { flex-direction: column; gap: 10px; }
+    .btn-verif { padding: 10px; }
+}

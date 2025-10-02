@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - SPK ISPO</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <style>
+        /* BASE STYLES & HEADER/SIDEBAR (Konsisten) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f6f9;
+            color: #000;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(90deg, #2E7D32, #3498db); color: #fff; padding: 20px 30px;
+            display: flex; justify-content: space-between; align-items: center; position: fixed;
+            top: 0; left: 240px; right: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header-title { font-size: 1.6rem; font-weight: 600; color: #fff; margin: 0; }
+
+        /* Modifikasi untuk Dropdown Profile (Admin) */
+        .user-profile-dropdown {
+            cursor: pointer;
+        }
+        
+        .user-profile-toggle {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 5px 10px; /* Tambahkan sedikit padding agar mudah diklik */
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        
+        .user-profile-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .user-profile-toggle i {
+            font-size: 2rem; /* Ukuran ikon disamakan */
+            margin-right: 10px;
+        }
+
+        .user-profile-toggle span {
+            font-weight: 500;
+            font-size: 1rem; /* Ukuran font disamakan */
+            line-height: 1;
+        }
+        
+        /* Ubah warna dropdown menu agar kontras */
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-top: 10px;
+        }
+        
+        .dropdown-item {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #333;
+        }
+        /* END Modifikasi Dropdown Profile */
+
+
+        .sidebar { width: 240px; height: 100vh; position: fixed; top: 0; left: 0; background: #fff; overflow-y: auto; }
+        .sidebar .logo { background: #fff; text-align: center; padding: 20px; display: block; gap: 0; }
+        .sidebar .logo img { width: 80px; display: block; margin: 0 auto; }
+        .logo-text { font-size: 0.75rem; font-weight: 600; color: #000; margin-top: 10px; text-align: center; }
+
+        .menu-container {
+            background: #2E7D32; border-top-left-radius: 35px; border-top-right-radius: 35px;
+            padding: 20px 0; margin-top: 20px; min-height: calc(100vh - 140px); display: block; gap: 0;
+        }
+
+        .menu-container h6 { font-size: 0.85rem; font-weight: 700; padding: 10px 20px; margin: 10px 0 5px 0; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
+        .menu-container a { display: flex; align-items: center; padding: 12px 20px; color: #fff; text-decoration: none; border-radius: 25px; margin: 5px 15px; font-size: 0.9rem; font-weight: 500; transition: all 0.3s ease; }
+        .menu-container a i { margin-right: 12px; font-size: 1.1rem; width: 20px; text-align: center; }
+        .menu-container a:hover { background: #1b5e20; color: #fff; transform: translateX(5px); }
+        .menu-container a.active { background: #fff; color: #2E7D32; font-weight: 600; border-radius: 25px; margin-right: 15px; box-shadow: none; transform: none;}
+        .sidebar .profile-link { font-size: 1rem; font-weight: 600; padding: 15px 20px; color: #333; text-decoration: none; display: block; margin-top: 10px; }
+
+        /* ISI KONTEN DASHBOARD ADMIN */
+        .main-content { margin-left: 240px; margin-top: 80px; padding: 30px; min-height: calc(100vh - 80px); }
+        .admin-dashboard-container { max-width: 1200px; margin: 0 auto; }
+
+        /* Teks "Selamat Datang Admin" */
+        .welcome-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            padding-left: 0;
+            line-height: 1;
+        }
+
+        /* Info Boxes (Stats) */
+        .info-boxes { display: flex; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
+        .info-card {
+            flex: 1; min-width: 250px; background: #fff; border-radius: 15px; padding: 20px;
+            display: flex; align-items: center; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); border: 1px solid #eee;
+        }
+        .info-icon {
+            font-size: 2.5rem; width: 50px; height: 50px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; color: #fff; margin-right: 20px;
+        }
+        .icon-green { background-color: #E8F5E9; color: #4CAF50; }
+        .icon-blue { background-color: #E3F2FD; color: #2196F3; }
+        .icon-red { background-color: #FFEBEE; color: #F44336; }
+        
+        .card-content .number { font-size: 2.2rem; font-weight: 700; margin: 0; color: #333; line-height: 1; }
+        .card-content .label { font-size: 0.9rem; font-weight: 500; color: #555; margin: 0; }
+        
+        /* Laporan Section */
+        .report-section { background: #fff; border-radius: 15px; padding: 30px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); }
+        .report-title { font-size: 1.6rem; font-weight: 600; color: #333; margin-bottom: 20px; }
+        .report-content { display: flex; gap: 40px; align-items: flex-start; }
+
+        /* Chart.js Container */
+        .chart-container-wrapper {
+            flex: 3;
+            padding: 10px;
+            /* Memberi batas bawah seperti pada mockup */
+            border-bottom: 2px solid #ccc; 
+            max-height: 300px;
+        }
+
+        /* Status Summary (Teks di Kanan) */
+        .status-summary {
+            flex: 1;
+            font-size: 1rem;
+            padding-top: 10px;
+            line-height: 1.8;
+            min-width: 200px;
+        }
+
+        .status-summary strong {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #333;
+            text-align: right; /* Rata kanan */
+        }
+        
+        .status-item {
+            display: flex;
+            justify-content: flex-end; /* Rata kanan */
+            align-items: center;
+            gap: 5px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .info-boxes { flex-direction: column; }
+            .info-card { min-width: 100%; }
+            .report-content { flex-direction: column; }
+            .chart-container-wrapper { width: 100%; max-height: 300px; }
+            .status-summary { min-width: 100%; }
+            .status-summary strong { text-align: left; }
+            .status-item { justify-content: flex-start; }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .dashboard-header { left: 0; }
+            .main-content { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <h2 class="page-header-title">Dashboard</h2>
+        
+        <div class="dropdown user-profile-dropdown">
+            <a class="user-profile-toggle dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-user-circle"></i>
+                <span>Admin</span>
+            </a>
+            
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="index.html"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+            </ul>
+        </div>
+        </div>
+
+    <div class="sidebar">
+        <div class="logo">
+            <img src="logo-bengkalis.jpg" alt="Logo Bengkalis">
+            <p class="logo-text">SPK & Pemetaan ISPO</p>
+        </div>
+        <div class="menu-container">
+            <h6>Home</h6>
+            <a href="dashboard_admin.html" class="active"><i class="fa-solid fa-house"></i> Dashboard</a>
+            <h6>Menu</h6>
+            <a href="verifikasi_dokumen.html"><i class="fa-solid fa-clipboard-check"></i> Verifikasi Dokumen</a>
+            <a href="perhitungan_spk.html"><i class="fa-solid fa-calculator"></i> Perhitungan SPK</a>
+            <a href="laporan_otomatis.html"><i class="fa-solid fa-chart-pie"></i> Laporan Otomatis</a>
+        </div>
+        </div>
+
+    <div class="main-content">
+        <div class="admin-dashboard-container">
+            <h1 class="welcome-text">Selamat Datang Admin</h1>
+
+            <div class="info-boxes">
+                
+                <div class="info-card" style="background-color: #E8F5E9;">
+                    <span class="info-icon icon-green">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    <div class="card-content">
+                        <p class="number">30</p>
+                        <p class="label">Jumlah Pekebun Terdaftar</p>
+                    </div>
+                </div>
+
+                <div class="info-card" style="background-color: #E3F2FD;">
+                    <span class="info-icon icon-blue">
+                        <i class="fa-solid fa-file-alt"></i>
+                    </span>
+                    <div class="card-content">
+                        <p class="number">24</p>
+                        <p class="label">Dokumen Diverifikasi</p>
+                    </div>
+                </div>
+
+                <div class="info-card" style="background-color: #FFEBEE;">
+                    <span class="info-icon icon-red">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                    </span>
+                    <div class="card-content">
+                        <p class="number">18</p>
+                        <p class="label">Lahan Terpetakan</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="report-section">
+                <h2 class="report-title">Laporan</h2>
+                
+                <div class="report-content">
+                    
+                    <div class="chart-container-wrapper">
+                        <canvas id="laporanBarChart"></canvas>
+                    </div>
+                    
+                    <div class="status-summary">
+                        <strong>Total 30 Pekebun</strong>
+                        <div class="status-item">
+                            <span style="color: #E74C3C;">13 Sudah ISPO</span>
+                        </div>
+                        <div class="status-item">
+                            <span style="color: #FFC107;">7 Proses</span>
+                        </div>
+                        <div class="status-item">
+                            <span style="color: #1565C0;">10 Belum ISPO</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data statis untuk meniru visual mockup (data dummy)
+        const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'];
+        const dataValues = [10, 15, 20, 25, 30, 35]; // Meniru tinggi bar yang naik
+
+        // Warna yang digunakan dalam mockup/visual bar chart
+        const barColors = [
+            '#E74C3C', // Merah
+            '#FFC107', // Kuning
+            '#3498db', // Biru
+            '#9B59B6', // Ungu
+            '#2E7D32', // Hijau Tua
+            '#4CAF50'  // Hijau
+        ];
+
+        const ctx = document.getElementById('laporanBarChart').getContext('2d');
+        
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: dataValues,
+                    backgroundColor: barColors,
+                    borderRadius: 5,
+                    barPercentage: 0.6, // Mengatur lebar bar
+                    categoryPercentage: 0.8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false, // Penting agar chart menyesuaikan kontainer
+                plugins: {
+                    legend: {
+                        display: false // Sembunyikan legenda
+                    },
+                    tooltip: {
+                        // Sembunyikan tooltip agar lebih mirip mockup
+                        enabled: true 
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        display: false, // Sembunyikan label Y axis (seperti di mockup)
+                        grid: {
+                            display: false // Sembunyikan garis grid Y
+                        }
+                    },
+                    x: {
+                        display: false, // Sembunyikan label X axis (seperti di mockup)
+                        grid: {
+                            display: false // Sembunyikan garis grid X
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

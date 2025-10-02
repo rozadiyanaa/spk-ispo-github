@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifikasi Dokumen - Admin</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <link href="style_admin_base.css" rel="stylesheet">
+
+    <style>
+        /* =================================== */
+        /* STYLE KHUSUS UNTUK MODAL KONFIRMASI */
+        /* =================================== */
+        .custom-confirm-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none; /* Default hidden */
+            justify-content: center;
+            align-items: center;
+            z-index: 1050; /* Di atas modal lainnya */
+        }
+        .custom-confirm-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+        .custom-confirm-box h4 {
+            margin-top: 0;
+            color: #dc3545; /* Merah */
+            font-weight: 600;
+        }
+        .custom-confirm-box p {
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+        .confirm-actions button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        .btn-confirm-yes {
+            background-color: #dc3545; /* Merah untuk Ya */
+            color: white;
+        }
+        .btn-confirm-yes:hover {
+            background-color: #c82333;
+        }
+        .btn-confirm-no {
+            background-color: #6c757d; /* Abu-abu untuk Batal */
+            color: white;
+        }
+        .btn-confirm-no:hover {
+            background-color: #5a6268;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+
+    </head>
+<body>
+    
+    <div id="documentDetailOverlay" class="detail-overlay">
+        <div class="detail-card">
+            <h3 class="detail-header">Detail Dokumen Pekebun</h3>
+            <span class="close-btn" onclick="hideDocumentDetail()">&times;</span>
+
+            <div class="detail-content-grid">
+                <div class="info-column">
+                    <div class="info-group">
+                        <label>Nama Pekebun:</label>
+                        <p id="detail-nama-view">Adin</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Jenis Dokumen:</label>
+                        <p id="detail-jenis-view">Sertifikat Tanah</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Tanggal Upload:</label>
+                        <p id="detail-tgl-view">19-07-2025</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Status Verifikasi:</label>
+                        <p id="detail-status-view"><span class="status-badge status-terverifikasi">Terverifikasi</span></p>
+                    </div>
+                    <div class="info-group">
+                        <label>Catatan Verifikator:</label>
+                        <p id="detail-catatan-view">Belum ada catatan dari verifikator.</p>
+                    </div>
+                </div>
+
+                <div class="preview-column">
+                    <label>Pratinjau Dokumen:</label>
+                    <div class="document-preview-box">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <p class="preview-text" id="detail-file-name">Sertifikat_Adin.pdf</p>
+                        <a href="#" class="btn-primary-view" target="_blank">Lihat Full Dokumen</a>
+                    </div>
+                    
+                    <div class="verification-actions">
+                        <button class="btn-verif btn-success-verif"><i class="fa-solid fa-check"></i> Verifikasi</button>
+                        <button class="btn-verif btn-danger-verif"><i class="fa-solid fa-times"></i> Tolak</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-action-footer">
+                <button class="btn-tutup" onclick="hideDocumentDetail()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="edit-form-overlay" id="editOverlay">
+        <div class="edit-form-card">
+            <h3 id="editFormTitle">Edit Dokumen Pekebun</h3>
+            <form>
+                <div class="form-group">
+                    <label for="editNama">Nama Pekebun</label>
+                    <input type="text" id="editNama" value="Adin" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="editJenis">Jenis Dokumen</label>
+                    <input type="text" id="editJenis" value="Sertifikat Tanah" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="editStatus">Ubah Status</label>
+                    <select id="editStatus">
+                        <option value="Terverifikasi">Terverifikasi</option>
+                        <option value="Proses">Proses</option>
+                        <option value="Belum Diproses">Belum Diproses</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="button" class="btn-form-action btn-cancel" onclick="hideEditForm()">Batal</button>
+                    <button type="submit" class="btn-form-action btn-save">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="custom-confirm-overlay" id="deleteConfirmOverlay">
+        <div class="custom-confirm-box">
+            <h4>Konfirmasi Penghapusan</h4>
+            <p id="confirmMessage">Apakah Anda yakin ingin menghapus dokumen ini?</p>
+            <div class="confirm-actions">
+                <button class="btn-confirm-no" onclick="hideCustomConfirm()">Batal</button>
+                <button class="btn-confirm-yes" id="confirmDeleteButton">Ya, Hapus</button>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard-header">
+        <i class="fa-solid fa-bars sidebar-toggle" onclick="toggleSidebar()"></i>
+        <h2 class="page-header-title">Verifikasi Dokumen</h2>
+        <div class="user-profile">
+            <i class="fa-solid fa-user-circle"></i>
+            <span>Admin</span>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="logo">
+            <img src="logo-bengkalis.jpg" alt="Logo Bengkalis">
+            <p class="logo-text">SPK & Pemetaan ISPO</p>
+        </div>
+        <div class="menu-container">
+            <h6>Home</h6>
+            <a href="dashboard_admin.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+            <h6>Menu</h6>
+            <a href="verifikasi_dokumen.html" class="active"><i class="fa-solid fa-clipboard-check"></i> Verifikasi Dokumen</a>
+            <a href="perhitungan_ahp.html"><i class="fa-solid fa-calculator"></i> Perhitungan SPK</a>
+            <a href="laporan_otomatis.html"><i class="fa-solid fa-chart-pie"></i> Laporan Otomatis</a>
+        </div>
+        <a href="profile.html" class="profile-link">Profil</a>
+    </div>
+
+    <div class="main-content">
+        <div class="verification-card">
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Cari Pekebun...">
+            </div>
+
+            <div class="table-responsive">
+                <table class="verification-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">No.</th>
+                            <th style="width: 25%;">Nama Pekebun</th>
+                            <th style="width: 20%;">Jenis Dokumen</th>
+                            <th style="width: 15%;">Tgl Upload</th>
+                            <th style="width: 15%;">Status</th>
+                            <th style="width: 20%;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-id="doc1" data-nama="Adin" data-jenis="Sertifikat Tanah" data-status="Terverifikasi" data-tgl="19-07-2025">
+                            <td>1</td>
+                            <td>Adin</td>
+                            <td>Sertifikat Tanah</td>
+                            <td>19-07-2025</td>
+                            <td><span class="status-badge status-terverifikasi">Terverifikasi</span></td>
+                            <td class="action-icons">
+                                <i class="fa-solid fa-eye" title="Lihat Dokumen" onclick="showDocumentDetail(this)"></i>
+                                <i class="fa-solid fa-edit" title="Edit Status" onclick="showEditForm(this)"></i>
+                                <i class="fa-solid fa-trash-alt" title="Hapus Dokumen" onclick="showCustomConfirm(this)"></i>
+                            </td>
+                        </tr>
+                        <tr data-id="doc2" data-nama="Roza" data-jenis="Sertifikat Tanah" data-status="Proses" data-tgl="25-08-2025">
+                            <td>2</td>
+                            <td>Roza</td>
+                            <td>Sertifikat Tanah</td>
+                            <td>25-08-2025</td>
+                            <td><span class="status-badge status-proses">Proses</span></td>
+                            <td class="action-icons">
+                                <i class="fa-solid fa-eye" title="Lihat Dokumen" onclick="showDocumentDetail(this)"></i>
+                                <i class="fa-solid fa-edit" title="Edit Status" onclick="showEditForm(this)"></i>
+                                <i class="fa-solid fa-trash-alt" title="Hapus Dokumen" onclick="showCustomConfirm(this)"></i>
+                            </td>
+                        </tr>
+                        <tr data-id="doc3" data-nama="Mujianto" data-jenis="Sertifikat Tanah" data-status="Belum Diproses" data-tgl="29-08-2025">
+                            <td>3</td>
+                            <td>Mujianto</td>
+                            <td>Sertifikat Tanah</td>
+                            <td>29-08-2025</td>
+                            <td><span class="status-badge status-belum">Belum Diproses</span></td>
+                            <td class="action-icons">
+                                <i class="fa-solid fa-eye" title="Lihat Dokumen" onclick="showDocumentDetail(this)"></i>
+                                <i class="fa-solid fa-edit" title="Edit Status" onclick="showEditForm(this)"></i>
+                                <i class="fa-solid fa-trash-alt" title="Hapus Dokumen" onclick="showCustomConfirm(this)"></i>
+                            </td>
+                        </tr>
+                        <tr data-id="doc4" data-nama="" data-jenis="" data-status="" data-tgl="">
+                            <td>4</td><td></td><td></td><td></td><td></td><td class="action-icons"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="btn-tutup-container">
+                <button type="button" class="btn-tutup">Tutup</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        // Variabel global untuk menyimpan elemen baris yang akan dihapus
+        let currentRowToDelete = null;
+
+        // ===================================
+        // FUNGSI MODAL EDIT STATUS
+        // ===================================
+        function showEditForm(editButton) {
+            const row = editButton.closest('tr');
+            const nama = row.getAttribute('data-nama');
+            const jenis = row.getAttribute('data-jenis');
+            const status = row.querySelector('.status-badge') ? row.querySelector('.status-badge').textContent.trim() : 'Belum Diproses';
+
+            document.getElementById('editNama').value = nama;
+            document.getElementById('editJenis').value = jenis;
+            
+            const selectStatus = document.getElementById('editStatus');
+            selectStatus.value = status || 'Belum Diproses'; 
+            
+            document.getElementById('editFormTitle').textContent = `Edit Dokumen: ${nama}`;
+
+            document.getElementById('editOverlay').style.display = 'flex'; 
+        }
+
+        function hideEditForm() {
+            document.getElementById('editOverlay').style.display = 'none';
+        }
+
+        // ===================================
+        // FUNGSI MODAL LIHAT DETAIL DOKUMEN
+        // ===================================
+        function showDocumentDetail(viewButton) {
+            const row = viewButton.closest('tr');
+            const nama = row.getAttribute('data-nama');
+            const jenis = row.getAttribute('data-jenis');
+            const status = row.getAttribute('data-status');
+            
+            const tglUpload = row.querySelector('td:nth-child(4)').textContent; 
+            const statusBadgeElement = row.querySelector('.status-badge');
+            const statusBadge = statusBadgeElement ? statusBadgeElement.outerHTML : `<span class="status-badge status-belum">Belum Diproses</span>`;
+            
+            document.getElementById('detail-nama-view').textContent = nama;
+            document.getElementById('detail-jenis-view').textContent = jenis;
+            document.getElementById('detail-tgl-view').textContent = tglUpload;
+            document.getElementById('detail-status-view').innerHTML = statusBadge;
+            document.getElementById('detail-file-name').textContent = `${jenis.replace(/\s/g, '_')}_${nama}.pdf`;
+
+            document.getElementById('detail-catatan-view').textContent = (status === 'Terverifikasi' ? 'Dokumen sudah diverifikasi dan disetujui.' : 'Menunggu tinjauan verifikator.');
+
+            document.getElementById('documentDetailOverlay').style.display = 'flex'; 
+        }
+
+        function hideDocumentDetail() {
+            document.getElementById('documentDetailOverlay').style.display = 'none';
+        }
+
+        // ===================================
+        // FUNGSI CUSTOM CONFIRMATION
+        // ===================================
+        function showCustomConfirm(deleteButton) {
+            const row = deleteButton.closest('tr');
+            currentRowToDelete = row; // Simpan baris yang akan dihapus
+            
+            const namaPekebun = row.getAttribute('data-nama');
+            const jenisDokumen = row.getAttribute('data-jenis');
+            
+            // Isi pesan di modal
+            document.getElementById('confirmMessage').textContent = 
+                `Apakah Anda yakin ingin menghapus dokumen "${jenisDokumen}" milik ${namaPekebun}? Tindakan ini tidak dapat dibatalkan.`;
+            
+            // Tampilkan modal
+            document.getElementById('deleteConfirmOverlay').style.display = 'flex';
+        }
+
+        function hideCustomConfirm() {
+            document.getElementById('deleteConfirmOverlay').style.display = 'none';
+            currentRowToDelete = null; // Reset
+        }
+
+        // Fungsi yang dieksekusi saat user klik 'Ya, Hapus'
+        document.getElementById('confirmDeleteButton').addEventListener('click', function() {
+            if (currentRowToDelete) {
+                const docId = currentRowToDelete.getAttribute('data-id');
+                const nama = currentRowToDelete.getAttribute('data-nama');
+                
+                // --- Lakukan Logika Penghapusan Data di Sini (AJAX Call) ---
+                console.log(`Menghapus dokumen dengan ID: ${docId} milik ${nama}...`);
+                
+                // SIMULASI BERHASIL HAPUS:
+                // 1. Hapus baris dari tabel
+                currentRowToDelete.remove();
+                
+                // 2. Sembunyikan modal konfirmasi
+                hideCustomConfirm();
+
+                // 3. (Opsional) Tampilkan notifikasi keberhasilan yang lebih elegan
+                alert(`Dokumen milik ${nama} berhasil dihapus.`); 
+            }
+        });
+        // ===================================
+
+        // --- FUNGSI UNTUK TOGGLE SIDEBAR DI MOBILE ---
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Menutup sidebar jika user klik di luar area sidebar
+        document.querySelector('.main-content').addEventListener('click', () => {
+            document.querySelector('.sidebar').classList.remove('open');
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
